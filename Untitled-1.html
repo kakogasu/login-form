@@ -1,0 +1,112 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="YOUR_CLIENT_ID">
+</head>
+
+<style>
+    /* width */
+    ::-webkit-scrollbar {
+      width: 20px;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px grey; 
+      border-radius: 10px;
+    }
+     
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: red; 
+      border-radius: 10px;
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #b30000; 
+    }
+    </style>
+<body>
+
+  <form id="loginForm" onsubmit="return validateForm()">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <div class="options">
+      <div class="forgot-password">
+        <a href="#" onclick="showForgotPasswordModal()">Forgot Password?</a>
+      </div>
+      <button type="submit">Login</button>
+    </div>
+
+    <div class="social-login">
+      <div class="g-signin2" data-onsuccess="onGoogleSignIn"></div>
+    </div>
+  </form>
+
+  <div id="forgotPasswordModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeForgotPasswordModal()">&times;</span>
+      <p>Enter your email to reset your password:</p>
+      <input type="email" id="resetEmail" placeholder="Your Email">
+      <button onclick="resetPassword()">Reset Password</button>
+    </div>
+  </div>
+
+  <script>
+    function validateForm() {
+      var username = document.getElementById('username').value;
+      var password = document.getElementById('password').value;
+
+      // Simple validation
+      if (username === '' || password === '') {
+        alert('Please enter both username and password');
+        return false;
+      }
+
+      // tambahin code aja kalau pengen lebih kompleks
+
+      return true;
+    }
+
+    function togglePasswordVisibility() {
+      var passwordInput = document.getElementById('password');
+      var showPasswordCheckbox = document.getElementById('showPassword');
+
+      passwordInput.type = showPasswordCheckbox.checked ? 'text' : 'password';
+    }
+
+    function showForgotPasswordModal() {
+      document.getElementById('forgotPasswordModal').style.display = 'block';
+    }
+
+    function closeForgotPasswordModal() {
+      document.getElementById('forgotPasswordModal').style.display = 'none';
+    }
+
+    function resetPassword() {
+      // Add logic to handle password reset (e.g., send a reset email)
+      alert('Password reset functionality is not implemented in this example.');
+    }
+
+    function onGoogleSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      alert('Google Sign-In Successful!\n\n' +
+            'ID: ' + profile.getId() + '\n' +
+            'Name: ' + profile.getName() + '\n' +
+            'Email: ' + profile.getEmail());
+    }
+  </script>
+
+</body>
+</html>
